@@ -1,6 +1,5 @@
 <template>
   <div>
-    旺财记账
     <hr />
     <router-view></router-view>
   </div>

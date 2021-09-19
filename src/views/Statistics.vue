@@ -1,5 +1,7 @@
 <template>
-<div>这里是S</div>
+<layout>
+    这里是s
+    </layout>
 </template>
 
 <script>

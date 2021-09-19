@@ -1,5 +1,9 @@
 <template>
-  <div>这里是L</div>
+  <div>
+    <layout>
+    这里是L
+    </layout>
+    </div>
 </template>
 
 <script>

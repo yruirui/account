@@ -1,16 +1,17 @@
 <template>
-  <div>
-    <Layout>
-      这里是M
-    </Layout>
-   </div>
+  <div class="nav-wrapper">
+    <div class="contenner">
+     <slot></slot>
+    </div>   
+    <Nav />
+  </div>
 </template>
 
 <script>
-
+import Nav from "@/components/nav.vue";
 export default {
-  components: { },
-  name: "Money",
+  components: { Nav },
+  name: "Layout",
 };
 </script>
 
