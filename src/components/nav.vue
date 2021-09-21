@@ -7,6 +7,8 @@
 </template>
 
 <script>
+import x from '@/assets/icons/lable.svg'
+console.log(x)
 export default {
   name: "Nav",
 };
