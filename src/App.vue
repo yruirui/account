@@ -21,7 +21,13 @@ export default {};
   text-align: center;
   color: #2c3e50;
 }
-
+body{
+  line-height:1.5
+}
+a{
+  text-decoration:none;
+  color:inherit;
+}
 #nav {
   padding: 30px;
 
