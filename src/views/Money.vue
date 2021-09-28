@@ -11,10 +11,10 @@
 
 <script lang="ts">
 
-import Tags from "@/components/Tags";
-import NumberPad from "@/components/NumberPad";
-import Types from "@/components/Types";
-import Notes from "@/components/Notes";
+import Tags from "@/components/Tags.vue";
+import NumberPad from "@/components/NumberPad.vue";
+import Types from "@/components/Types.vue";
+import Notes from "@/components/Notes.vue";
 export default {
   components: {Notes, Types, NumberPad, Tags },
   name: "Money",

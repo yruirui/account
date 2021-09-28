@@ -9,7 +9,7 @@
       <button @click="inputContent">4</button>
       <button @click="inputContent">5</button>
       <button @click="inputContent">6</button>
-      <button >清空</button>
+      <button>清空</button>
       <button @click="inputContent">7</button>
       <button @click="inputContent">8</button>
       <button @click="inputContent">9</button>
@@ -31,9 +31,13 @@ export default class NumberPad extends Vue {
   inputContent(event: MouseEvent) {
     const button = (event.target as HTMLButtonElement);//这是一个强制执行的类型
     const input = button.textContent!;
-    if(this.output.length===16){return;}
+    if (this.output.length === 16) {
+      return;
+    }
     if (this.output === '0') {
-      if(input==='0'){return;}
+      if (input === '0') {
+        return;
+      }
       if ('0123456789'.indexOf(input) >= 0) {
         this.output = input;
       } else {
@@ -42,18 +46,27 @@ export default class NumberPad extends Vue {
       return;
     }
     if (this.output.indexOf('.') >= 0) {
-      if(input ==='.'){return;}
+      if (input === '.') {
+        return;
+      }
     }
     this.output += input;
   }
-  remove(){
-    this.output=this.output.slice(0,-1);
+
+  remove() {
+    if (this.output.length === 1) {
+      this.output = '0';
+    } else {
+      this.output = this.output.slice(0, -1);
+    }
   }
-  clear(){
-    return
+
+  clear() {
+    this.output = '0';
   }
-  ok(){
-    return
+
+  ok() {
+
   }
 }
 </script>

@@ -1,6 +1,25 @@
 {
   "compilerOptions": {
 
+    "module": "CommonJS",
+    "target": "es2017",
+
+    "moduleResolution": "node",
+    "allowJs": false,
+
+    "declaration": true,
+    "experimentalDecorators": true,
+
+    "allowSyntheticDefaultImports": true,
+
+    "strict": false,
+
+    "locale": "zh-TW",
+    "pretty": true,
+
+    "traceResolution": true,
+    "newLine": "lf",
+
     "target": "esnext",
     "module": "esnext",
     "strict": true,
