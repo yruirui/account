@@ -10,14 +10,12 @@
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 
+@Component
 export default class Notes extends Vue {
   value = '';
 
   oninput(event: KeyboardEvent) {
     const input = event.target as HTMLInputElement;
-    console.log(input.value)
-    console.log("======")
-    console.log(this.value)
     this.value = input.value;
   }
 }
