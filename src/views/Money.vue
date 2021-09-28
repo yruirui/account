@@ -9,7 +9,7 @@
    </div>
 </template>
 
-<script>
+<script lang="ts">
 
 import Tags from "@/components/Tags";
 import NumberPad from "@/components/NumberPad";
