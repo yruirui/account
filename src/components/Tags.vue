@@ -8,7 +8,7 @@
 
     </ol>
     <div class="new-current">
-      <button>新增标签</button>
+      <button @click="create">新增标签</button>
     </div>
   </div>
 </template>
@@ -19,7 +19,7 @@ import {Component, Prop} from 'vue-property-decorator';
 
 @Component
 export default class Tags extends Vue {
-  @Prop(Array) dataSource: string[] = [];
+  @Prop(Array) readonly dataSource: string[] = [];
   selectedTags: string[] = [];
 
   toggle(tag: string) {
@@ -28,6 +28,15 @@ export default class Tags extends Vue {
       this.selectedTags.splice(index, 1);
     } else {
       this.selectedTags.push(tag);
+    }
+    this.$emit('update:value',this.selectedTags)
+  }
+  create(){
+    const name=window.prompt('请输入标签名')
+    if(name===''){
+      window.alert('标签名不能为空')
+    }else{
+      this.$emit('update:value',[...this.dataSource,name])
     }
 
   }
