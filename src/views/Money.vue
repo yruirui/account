@@ -1,18 +1,18 @@
 <template>
   <div>
     <Layout classprefix="classprefix">
-      {{record}}
-      <Tags :data-source.sync="tags" @update:value="onUpdateTags" />
+      {{ record }}
+      <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
       <Notes @update:value="onUpdateNotes"/>
-      <Types :value.sync="record.type"  />
-      <NumberPad @update:value="onUpdateAmount"/>
+      <Types :value.sync="record.type"/>
+      <NumberPad @update:value="onUpdateAmount" @submit="saveRecord"/>
     </Layout>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component} from 'vue-property-decorator';
+import {Component, Watch} from 'vue-property-decorator';
 import Tags from '@/components/Tags.vue';
 import NumberPad from '@/components/NumberPad.vue';
 import Types from '@/components/Types.vue';
@@ -29,6 +29,7 @@ type Record = {
 export default class Money extends Vue {
   tags = ['衣', '食', '住', '行'];
   record: Record = {tags: [], notes: '', type: '+', amount: 0};
+  recordList: Record[] = [];
 
   onUpdateTags(value: string[]) {
 
@@ -44,6 +45,15 @@ export default class Money extends Vue {
     this.record.amount = parseFloat(value);
   }
 
+  saveRecord() {
+    const record2=JSON.parse(JSON.stringify(this.record))//深拷贝
+    this.recordList.push(record2);
+  }
+  @Watch('recordList')
+  onRecordListChange(){
+    window.localStorage.setItem('recordList',JSON.stringify(this.recordList))
+
+  }
 }
 </script>
 
