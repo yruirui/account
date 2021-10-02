@@ -16,8 +16,10 @@ import Tags from '@/components/Tags.vue';
 import NumberPad from '@/components/NumberPad.vue';
 import Types from '@/components/Types.vue';
 import Notes from '@/components/Notes.vue';
-import model from '@/model';
+import recordListModel from '@/models/recordListModel';
+import tagListModel from '@/models/tagListModel';
 
+const tagList=tagListModel.fetch()
 //  //数据库升级和转移的一些处理
 // const version = window.localStorage.getItem('version') || '0';
 // const recordLIst: Record[] = JSON.parse(window.localStorage.getItem('recordList') || '');
@@ -35,9 +37,9 @@ import model from '@/model';
 
 @Component({components: {Notes, Types, NumberPad, Tags},})
 export default class Money extends Vue {
-  tags = ['衣', '食', '住', '行'];
+  tags = tagList;
   record: RecordItem = {tags: [], notes: '', type: '+', amount: 0, createdAt: undefined};
-  recordList: RecordItem[] = model.fetch()
+  recordList: RecordItem[] = recordListModel.fetch()
 
   onUpdateTags(value: string[]) {
 
@@ -55,7 +57,7 @@ export default class Money extends Vue {
 
   saveRecord() {
     try{
-      const record2: RecordItem = model.clone(this.record);//深拷贝
+      const record2: RecordItem = recordListModel.clone(this.record);//深拷贝
       record2.createdAt = new Date();
       this.recordList.push(record2);
     }
@@ -67,7 +69,7 @@ export default class Money extends Vue {
 
   @Watch('recordList')
   onRecordListChange() {
-      model.save(this.recordList)
+      recordListModel.save(this.recordList)
   }
 }
 </script>
