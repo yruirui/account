@@ -1,7 +1,6 @@
 <template>
   <div>
     <Layout classprefix="classprefix">
-      {{ recordList }}
       <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
       <Notes @update:value="onUpdateNotes"/>
       <Types :value.sync="record.type"/>
@@ -17,8 +16,9 @@ import Tags from '@/components/Tags.vue';
 import NumberPad from '@/components/NumberPad.vue';
 import Types from '@/components/Types.vue';
 import Notes from '@/components/Notes.vue';
+import model from '@/model';
 
-/* //数据库升级和转移的一些处理
+//  //数据库升级和转移的一些处理
 // const version = window.localStorage.getItem('version') || '0';
 // const recordLIst: Record[] = JSON.parse(window.localStorage.getItem('recordList') || '');
 // if (version === '0.0.1') {
@@ -30,20 +30,14 @@ import Notes from '@/components/Notes.vue';
 //   window.localStorage.setItem('recordLIst',JSON.stringify(recordLIst))
 // }
 // window.localStorage.setItem('version','0.0.8')
-*/
-type Record = {
-  tags: string[]
-  notes: string
-  type: string
-  amount: number
-  createdAt: Date | undefined //类，构造函数
-}
+
+
 
 @Component({components: {Notes, Types, NumberPad, Tags},})
 export default class Money extends Vue {
   tags = ['衣', '食', '住', '行'];
-  record: Record = {tags: [], notes: '', type: '+', amount: 0, createdAt: undefined};
-  recordList: Record[] = JSON.parse(window.localStorage.getItem('recordList') || '');
+  record: RecordItem = {tags: [], notes: '', type: '+', amount: 0, createdAt: undefined};
+  recordList: RecordItem[] = model.fetch()
 
   onUpdateTags(value: string[]) {
 
@@ -60,15 +54,20 @@ export default class Money extends Vue {
   }
 
   saveRecord() {
-    const record2: Record = JSON.parse(JSON.stringify(this.record));//深拷贝
-    record2.createdAt = new Date();
-    this.recordList.push(record2);
+    try{
+      const record2: RecordItem = model.clone(this.record);//深拷贝
+      record2.createdAt = new Date();
+      this.recordList.push(record2);
+    }
+    catch(error){
+      console.log("saveRecord");
+      console.log(error);
+    }
   }
 
   @Watch('recordList')
   onRecordListChange() {
-    window.localStorage.setItem('recordList', JSON.stringify(this.recordList));
-
+      model.save(this.recordList)
   }
 }
 </script>
