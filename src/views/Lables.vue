@@ -1,8 +1,8 @@
 <template>
   <div>
     <layout>
-      <ol class="tags" v-for="tag in tags" :key="tag">
-        <li><span>{{ tag }}</span>
+      <ol class="tags" v-for="tag in tags" :key="tag.id">
+        <li><span>{{ tag.name }}</span>
           <icon name="right"></icon>
         </li>
       </ol>
@@ -29,6 +29,7 @@ export default class Lables extends Vue {
       const message=tagListModel.create(name);
       if(message==='success'){
         window.alert('创建标签成功')
+        console.log(this.tags);
       }else if(message==='duplicated'){
         window.alert('标签重复')
       }
