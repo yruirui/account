@@ -2,7 +2,7 @@
   <div>
     <Layout classprefix="classprefix">
       <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
-      <Notes @update:value="onUpdateNotes"/>
+      <Notes @update:value="onUpdateNotes" placeholder="请在这里输入备注" field-name="备注"/>
       <Types :value.sync="record.type"/>
       <NumberPad @update:value="onUpdateAmount" @submit="saveRecord"/>
     </Layout>

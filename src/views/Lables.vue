@@ -1,11 +1,11 @@
 <template>
   <div>
     <layout>
-      <ol class="tags" v-for="tag in tags" :key="tag.id">
-        <li><span>{{ tag.name }}</span>
+      <div class="tags" >
+        <router-link  class="tag" v-for="tag in tags" :key="tag.id" :to="`/labels/edit/${tag.id}`"><span>{{ tag.name }} </span>
           <icon name="right"></icon>
-        </li>
-      </ol>
+        </router-link>
+      </div>
       <div class="newTag-wrapper">
         <button class="newTag" @click="createTag">新增标签</button>
       </div>
@@ -15,7 +15,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component} from 'vue-property-decorator';
+import {Component,Prop} from 'vue-property-decorator';
 import tagListModel from '@/models/tagListModel';
 
 tagListModel.fetch();
@@ -43,7 +43,7 @@ export default class Lables extends Vue {
   background: white;
   padding-left: 16px;
 
-  > li {
+  > .tag {
     display: flex;
     align-items: center;
     justify-content: space-between;

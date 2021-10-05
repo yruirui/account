@@ -1,6 +1,7 @@
 <template>
 <layout>
-  这里是编辑页
+  <div><icon name="left" />编辑标签</div>
+  <notes placeholder="请输入标签名" field-name="标签名" />
 </layout>
 </template>
 
@@ -8,8 +9,10 @@
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import tagListModel from '@/models/tagListModel';
-
-@Component
+import Notes from '@/components/Notes.vue';
+@Component({
+  components: {Notes}
+})
 export default class LabelsEdit extends Vue {
 
   created(){
