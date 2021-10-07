@@ -1,6 +1,5 @@
 <template>
   <lable class="notes" name="">
-    {{ value }}
     <span class="name">{{ this.fieldName }}</span>
     <input type="text" v-model="value" :placeholder="this.placeholder"/>
   </lable>
@@ -30,7 +29,6 @@ export default class Notes extends Vue {
 
 .notes {
   font-size: 14px;
-  background: #f5f5f5;
   padding: 0 16px;
   display: flex;
   align-items: center;
