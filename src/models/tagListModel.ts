@@ -1,3 +1,5 @@
+import createID from '@/lib/createID';
+
 const localStorageKeyName = 'tagList';
 type Tag = {
     id: string
@@ -8,6 +10,8 @@ type tagListModel = {
     create: (name: string) => 'success' | 'duplicated'
     fetch: () => Tag[]
     save: () => void
+    update: (name: string, id: string) => 'not found' | 'success' | 'duplicated'
+    remove: (id: string) => boolean
 
 }
 const tagListModel: tagListModel = {
@@ -17,7 +21,8 @@ const tagListModel: tagListModel = {
         if (names.indexOf(name) >= 0) {
             return 'duplicated';
         }
-        this.data.push({id: name, name: name});
+        const id=createID().toString();
+        this.data.push({id, name: name});
         this.save();
         return 'success';
     },
@@ -27,6 +32,34 @@ const tagListModel: tagListModel = {
     },
     save() {
         window.localStorage.setItem(localStorageKeyName, JSON.stringify(this.data));
+    },
+    update(id, name) {
+        const listId = this.data.map(item => item.id);
+        if (listId.indexOf(id) >= 0) {
+            const names = this.data.map(item => item.name);
+            if (names.indexOf(name) >= 0) {
+                return 'duplicated';
+            } else {
+                const tag = this.data.filter(item => item.id = id)[0];
+                tag.name = name;
+                this.save();
+                return 'success';
+            }
+        } else {
+            return 'not found';
+        }
+    },
+    remove(id) {
+        let index = -1;
+        for (let i = 0; i < this.data.length; i++) {
+            if (this.data[i].id === id) {
+                index = i;
+                break;
+            }
+        }
+        this.data.splice(index, 1);
+        this.save();
+        return true;
     }
 };
 export default tagListModel;

@@ -1,9 +1,10 @@
 <template>
   <div class="tags">
     <ol class="current">
-      <li v-for="tag in dataSource" :key="tag" @click="toggle(tag)"
+      <li v-for="tag in dataSource" :key="tag.id"
+          @click="toggle(tag)"
           :class="{selected:selectedTags.indexOf(tag)>=0}">
-        {{ tag }}
+        {{ tag.id }}
       </li>
 
     </ol>
@@ -19,7 +20,8 @@ import {Component, Prop} from 'vue-property-decorator';
 
 @Component
 export default class Tags extends Vue {
-  @Prop(Array) readonly dataSource: string[] = [];
+  @Prop() readonly dataSource: string[] | undefined;
+  //@Prop(Array) readonly dataSource: string[] = [];
   selectedTags: string[] = [];
 
   toggle(tag: string) {
@@ -29,14 +31,15 @@ export default class Tags extends Vue {
     } else {
       this.selectedTags.push(tag);
     }
-    this.$emit('update:value',this.selectedTags)
+    this.$emit('update:value', this.selectedTags);
   }
-  create(){
-    const name=window.prompt('请输入标签名')
-    if(name===''){
-      window.alert('标签名不能为空')
-    }else{
-      this.$emit('update:value',[...this.dataSource,name])
+
+  create() {
+    const name = window.prompt('请输入标签名');
+    if (name === '') {
+      window.alert('标签名不能为空');
+    } else {
+      this.$emit('update:value', [...this.dataSource as string[], name]);
     }
 
   }
