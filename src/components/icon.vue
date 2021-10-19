@@ -1,6 +1,6 @@
 
 <template>
-    <svg class="icon">
+    <svg class="icon" @click="$emit('click',$event)">
         <use v-bind:xlink:href="'#'+name"/>      
     </svg>
 </template>

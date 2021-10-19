@@ -37,10 +37,12 @@ const tagList = tagListModel.fetch();
 
 @Component({components: {Notes, Types, NumberPad, Tags},})
 export default class Money extends Vue {
-  tags = tagList;
+  tags = window.tagList
 
+  // eslint-disable-next-line no-undef
   record: RecordItem = {tags: [], notes: '', type: '+', amount: 0, createdAt: undefined};
 
+  // eslint-disable-next-line no-undef
   recordList: RecordItem[] = recordListModel.fetch()||[];
 
 
@@ -59,9 +61,7 @@ export default class Money extends Vue {
 
   saveRecord() {
     try {
-      const record2: RecordItem = recordListModel.clone(this.record);//深拷贝
-      record2.createdAt = new Date();
-      this.recordList.push(record2);
+      recordListModel.create(this.record)
     } catch (error) {
       console.log('saveRecord');
       console.log(error);

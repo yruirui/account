@@ -1,12 +1,19 @@
+import clone from '@/lib/clone';
+
 const localStorageKeyName = 'recordList';
 const recordListModel = {
-    clone(data: RecordItem | RecordItem[]) {
-        return JSON.parse(JSON.stringify(data));
+    data:[] as RecordItem[],
+    create(record:RecordItem){
+        const record2: RecordItem = clone(record);//深拷贝
+        record2.createdAt = new Date();
+        this.data.push(record2);
     },
     fetch() {
         //return (JSON.parse((window.localStorage.getItem(localStorageKeyName)) || '') )|| [];
         try {
-            return JSON.parse(window.localStorage.getItem(localStorageKeyName) || '[]') as RecordItem[];
+            this.data=JSON.parse(window.localStorage.getItem(localStorageKeyName) || '[]')
+            return this.data;
+            //return JSON.parse(window.localStorage.getItem(localStorageKeyName) || '[]') as RecordItem[];
         }catch (error) {
             console.log('报错为');
             console.log(error);
@@ -14,7 +21,7 @@ const recordListModel = {
 
     },
     save(data: RecordItem[]) {
-        window.localStorage.setItem(localStorageKeyName, JSON.stringify(data));
+        window.localStorage.setItem(localStorageKeyName, JSON.stringify(this.data));
     }
 };
 export default recordListModel;
