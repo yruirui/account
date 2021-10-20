@@ -9,6 +9,7 @@ const tagListModel: tagListModel = {
         if (names.indexOf(name) >= 0) {
             return 'duplicated';
         }
+        console.log('8');
         const id=createID().toString();
         this.data.push({id, name: name});
         this.save();
