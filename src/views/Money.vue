@@ -18,9 +18,9 @@ import NumberPad from '@/components/NumberPad.vue';
 import Types from '@/components/Types.vue';
 import Notes from '@/components/Notes.vue';
 import recordListModel from '@/models/recordListModel';
-import tagListModel from '@/models/tagListModel';
 
-const tagList = tagListModel.fetch();
+
+const tagList = window.tagList;
 //  //数据库升级和转移的一些处理
 // const version = window.localStorage.getItem('version') || '0';
 // const recordLIst: Record[] = JSON.parse(window.localStorage.getItem('recordList') || '');

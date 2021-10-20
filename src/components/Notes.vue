@@ -1,10 +1,10 @@
 <template>
-  <lable class="notes" name="">
+  <lable class="notes">
     <span class="name">{{ this.fieldName }}</span>
     <input type="text"
            :value="value"
            @input="onValueChange($event.target.value)"
-           :placeholder="this.placeholder"/>
+           :placeholder="this.placeholder" />
   </lable>
 </template>
 
@@ -14,8 +14,7 @@ import {Component, Watch, Prop} from 'vue-property-decorator';
 
 @Component
 export default class Notes extends Vue {
-  @Prop({default:''})value!:string;
-
+  @Prop({default:''}) value!:string;
   @Prop({required: true}) fieldName!: string;
   @Prop() placeholder?: string;
 

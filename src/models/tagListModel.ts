@@ -19,6 +19,7 @@ const tagListModel: tagListModel = {
         return this.data;
     },
     save() {
+        console.log(this.data);
         window.localStorage.setItem(localStorageKeyName, JSON.stringify(this.data));
     },
     update(id, name) {

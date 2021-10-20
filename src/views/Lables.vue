@@ -2,7 +2,8 @@
   <div>
     <layout>
       <div class="tags" >
-        <router-link  class="tag" v-for="tag in tags" :key="tag.id" :to="`/labels/edit/${tag.id}`"><span>{{ tag.name }} </span>
+        <router-link  class="tag" v-for="tag in tags"
+                      :key="tag.id" :to="`/labels/edit/${tag.id}`"><span>{{ tag.name }} </span>
           <icon name="right"></icon>
         </router-link>
       </div>
@@ -16,10 +17,9 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component,Prop} from 'vue-property-decorator';
-import tagListModel from '@/models/tagListModel';
 import Button from '@/components/Button.vue';
 
-tagListModel.fetch();
+
 @Component({
   components: {Button}
 })
