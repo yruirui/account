@@ -1,7 +1,7 @@
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import createID from '@/lib/createID';
-
-
+import createID from "@/lib/createID";
 const localStorageKeyName = 'tagList';
 
 const tagListModel: tagListModel = {

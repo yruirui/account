@@ -17,9 +17,10 @@ import Tags from '@/components/Tags.vue';
 import NumberPad from '@/components/NumberPad.vue';
 import Types from '@/components/Types.vue';
 import Notes from '@/components/Notes.vue';
+import store from '@/store/index2';
 
 
-const tagList = window.tagList;
+const tagList = store.tagList;
 //  //数据库升级和转移的一些处理
 // const version = window.localStorage.getItem('version') || '0';
 // const recordLIst: Record[] = JSON.parse(window.localStorage.getItem('recordList') || '');
@@ -36,13 +37,13 @@ const tagList = window.tagList;
 
 @Component({components: {Notes, Types, NumberPad, Tags},})
 export default class Money extends Vue {
-  tags = window.tagList
+  tags = store.tagList
 
   // eslint-disable-next-line no-undef
   record: RecordItem = {tags: [], notes: '', type: '+', amount: 0, createdAt: undefined};
 
   // eslint-disable-next-line no-undef
-  recordList = window.recordList
+  recordList =  store.recordList
 
 
   onUpdateTags(value: string[]) {
@@ -60,7 +61,7 @@ export default class Money extends Vue {
 
   saveRecord() {
     try {
-      window.creatRecord(this.record)
+      store.creatRecord(this.record)
     } catch (error) {
       console.log('saveRecord');
       console.log(error);
