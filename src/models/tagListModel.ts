@@ -1,4 +1,6 @@
+// @ts-ignore
 import createID from '@/lib/createID';
+
 
 const localStorageKeyName = 'tagList';
 

@@ -7,6 +7,7 @@ const recordListModel = {
         const record2: RecordItem = clone(record);//深拷贝
         record2.createdAt = new Date();
         this.data.push(record2);
+        this.save()
     },
     fetch() {
         //return (JSON.parse((window.localStorage.getItem(localStorageKeyName)) || '') )|| [];
@@ -20,7 +21,7 @@ const recordListModel = {
         }
 
     },
-    save(data: RecordItem[]) {
+    save() {
         window.localStorage.setItem(localStorageKeyName, JSON.stringify(this.data));
     }
 };

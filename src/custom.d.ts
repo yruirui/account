@@ -26,4 +26,6 @@ interface Window {
     removeTag: (id: string) => boolean
     updateTag:tagListModel['update']
     findTag:(id:string)=>Tag
+    recordList:RecordItem[]
+    creatRecord:(record:RecordItem)=>viod
 }
