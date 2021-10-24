@@ -1,7 +1,7 @@
 <template>
   <div>
     <Layout classprefix="classprefix">
-      <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
+      <Tags/>
       <Notes @update:value="onUpdateNotes" placeholder="请在这里输入备注" field-name="备注"/>
       <Types :value.sync="record.type"/>
       <NumberPad @update:value="onUpdateAmount" @submit="saveRecord"/>
@@ -11,7 +11,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component } from 'vue-property-decorator';
+import {Component} from 'vue-property-decorator';
 import Tags from '@/components/Tags.vue';
 import NumberPad from '@/components/NumberPad.vue';
 import Types from '@/components/Types.vue';
@@ -34,20 +34,20 @@ const tagList = store.tagList;
 // window.localStorage.setItem('version','0.0.8')
 
 
-@Component({components: {Notes, Types, NumberPad, Tags},})
+@Component({
+      components: {Notes, Types, NumberPad, Tags},
+      computed: {//数据不管是对象和值都要放在这里,当值变化时对这些数据进行监听，保证数据的及时和灵活
+        recordList () {return store.recordList},
+      }
+    },
+)
 export default class Money extends Vue {
-  tags = store.tagList
+
 
   // eslint-disable-next-line no-undef
   record: RecordItem = {tags: [], notes: '', type: '+', amount: 0, createdAt: undefined};
-
   // eslint-disable-next-line no-undef
-  recordList =  store.recordList
-
-
-  onUpdateTags(value: string[]) {
-    this.record.tags = value;
-  }
+  recordList = store.recordList;
 
   onUpdateNotes(value: string) {
 
@@ -60,7 +60,7 @@ export default class Money extends Vue {
 
   saveRecord() {
     try {
-      store.creatRecord(this.record)
+      store.creatRecord(this.record);
     } catch (error) {
       console.log('saveRecord');
       console.log(error);
