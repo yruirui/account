@@ -47,7 +47,7 @@ export default class Money extends Vue {
   // eslint-disable-next-line no-undef
   record: RecordItem = {tags: [], notes: '', type: '+', amount: 0, createdAt: undefined};
   // eslint-disable-next-line no-undef
-  recordList = store.recordList;
+  //recordList = store.recordList;
 
   onUpdateNotes(value: string) {
 
