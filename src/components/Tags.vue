@@ -17,11 +17,17 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component, Prop} from 'vue-property-decorator';
-import store from '@/store/index2';
 
-@Component
+@Component({
+  computed: {
+    tagList() {
+      //todo
+      // return this.$store.fetchTags()
+      return ' '
+    }
+  }
+})
 export default class Tags extends Vue {
-  tagList=store.fetchTags()
   //@Prop(Array) readonly dataSource: string[] = [];
   selectedTags: string[] = [];
 
@@ -38,10 +44,11 @@ export default class Tags extends Vue {
   create() {
     const name = window.prompt('请输入标签名');
     if (!name) {
-      window.alert('标签名不能为空');
-    } else if(this.tagList){
-      store.createTage(name)
+      return window.alert('标签名不能为空');
     }
+      //todo
+      // store.createTage(name)
+
 
   }
 }

@@ -23,7 +23,6 @@ import {Component} from 'vue-property-decorator';
 
 import Notes from '@/components/Notes.vue';
 import Button from '@/components/Button.vue';
-import store from '@/store/index2';
 
 @Component({
   components: {Button, Notes}
@@ -32,11 +31,12 @@ export default class LabelsEdit extends Vue {
   tag?: { id: string, name: string } = undefined;
 
   created() {
-    const tags = store.tagList
-    console.log(tags);
-    const tag = store.findTag(this.$route.params.id)
-    if (tag) {
-      this.tag = tag;
+    //todo
+    // const tags = store.tagList
+     //const tag = store.findTag(this.$route.params.id)
+    if (this.tag) {
+      //todo
+      //this.tag = tag;
     } else {
       this.$router.replace('/404');
     }
@@ -44,18 +44,21 @@ export default class LabelsEdit extends Vue {
 
   updateTag(name: string) {
     if (this.tag) {
-      store.updateTag (this.tag.id, name) ;
+      //todo
+      //store.updateTag (this.tag.id, name) ;
     }
   }
 
   removeTag(id: string) {
     if (this.tag) {
-      if( store.removeTag(this.tag.id)){
-        window.alert('删除成功')
-        this.$router.back();
-      }else {
-        window.alert('删除失败')
-      }
+      return
+      //todo
+      // if( store.removeTag(this.tag.id)){
+      //   window.alert('删除成功')
+      //   this.$router.back();
+      // }else {
+      //   window.alert('删除失败')
+      // }
     }
   }
   goBack(){

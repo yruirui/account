@@ -16,10 +16,10 @@ import Tags from '@/components/Tags.vue';
 import NumberPad from '@/components/NumberPad.vue';
 import Types from '@/components/Types.vue';
 import Notes from '@/components/Notes.vue';
-import store from '@/store/index2';
 
 
-const tagList = store.tagList;
+//todo
+//const tagList = store.tagList;
 //  //数据库升级和转移的一些处理
 // const version = window.localStorage.getItem('version') || '0';
 // const recordLIst: Record[] = JSON.parse(window.localStorage.getItem('recordList') || '');
@@ -37,7 +37,7 @@ const tagList = store.tagList;
 @Component({
       components: {Notes, Types, NumberPad, Tags},
       computed: {//数据不管是对象和值都要放在这里,当值变化时对这些数据进行监听，保证数据的及时和灵活
-        recordList () {return store.recordList},
+        recordList () {return this.$store.state.recordList},
       }
     },
 )
@@ -48,7 +48,9 @@ export default class Money extends Vue {
   record: RecordItem = {tags: [], notes: '', type: '+', amount: 0, createdAt: undefined};
   // eslint-disable-next-line no-undef
   //recordList = store.recordList;
-
+created(){
+  this.$store.commit('fetchRecords')
+}
   onUpdateNotes(value: string) {
 
     this.record.notes = value;
@@ -60,7 +62,8 @@ export default class Money extends Vue {
 
   saveRecord() {
     try {
-      store.creatRecord(this.record);
+      this.$store.commit('createRecord',this.record
+      );
     } catch (error) {
       console.log('saveRecord');
       console.log(error);
