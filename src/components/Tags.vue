@@ -21,15 +21,18 @@ import {Component, Prop} from 'vue-property-decorator';
 @Component({
   computed: {
     tagList() {
-      //todo
-      // return this.$store.fetchTags()
-      return ' '
+      return this.$store.state.tagList;
+
     }
   }
 })
 export default class Tags extends Vue {
   //@Prop(Array) readonly dataSource: string[] = [];
   selectedTags: string[] = [];
+
+  created() {
+  this.$store.commit('fetchTags')
+  }
 
   toggle(tag: string) {
     const index = this.selectedTags.indexOf(tag);
@@ -46,8 +49,8 @@ export default class Tags extends Vue {
     if (!name) {
       return window.alert('标签名不能为空');
     }
-      //todo
-      // store.createTage(name)
+    //todo
+    this.$store.commit('createTage',name)
 
 
   }
