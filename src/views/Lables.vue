@@ -1,9 +1,9 @@
 <template>
   <div>
     <layout>
-      <div class="tags" >
-        <router-link  class="tag" v-for="tag in tags"
-                      :key="tag.id" :to="`/labels/edit/${tag.id}`"><span>{{ tag.name }} </span>
+      <div class="tags">
+        <router-link class="tag" v-for="tag in tags"
+                     :key="tag.id" :to="`/labels/edit/${tag.id}`"><span>{{ tag.name }} </span>
           <icon name="right"></icon>
         </router-link>
       </div>
@@ -16,25 +16,30 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component,Prop} from 'vue-property-decorator';
+import {Component, Prop} from 'vue-property-decorator';
 import Button from '@/components/Button.vue';
-
+import TagHelper from '@/mixins/TagHelper';
+import {mixins} from 'vue-class-component';
 
 
 @Component({
-  components: {Button}
+  components: {Button},
+
 })
-export default class Lables extends Vue {
-  //todo
-  //tags =  store.tagList;
-  tags=[]
+export default class Lables extends mixins(TagHelper) {
+   get  tags() {
+    return this.$store.state.tagList;
+  }
+  beforeCreated(){
+    this.$store.commit('fetchTags')
+  }
 
   createTag() {
     const name = window.prompt('请输入标签名');
-    if (name) {
-      //todo
-      //store.createTage(name)
+    if (!name) {
+      return window.alert('标签名不能为空');
     }
+    this.$store.commit('createTage',name)
   }
 }
 </script>

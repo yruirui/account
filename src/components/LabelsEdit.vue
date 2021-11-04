@@ -25,19 +25,19 @@ import Notes from '@/components/Notes.vue';
 import Button from '@/components/Button.vue';
 
 @Component({
-  components: {Button, Notes}
+  components: {Button, Notes},
 })
 export default class LabelsEdit extends Vue {
-  tag?: { id: string, name: string } = undefined;
+  //tag?: { id: string, name: string } = undefined;
+  get tag() {
+    return this.$store.state.currentTag;
+  }
 
   created() {
-    //todo
-    // const tags = store.tagList
-     //const tag = store.findTag(this.$route.params.id)
-    if (this.tag) {
+    const id = this.$route.params.id;
+    this.$store.commit('setCurrentTag', id);
+    if (!this.tag) {
       //todo
-      //this.tag = tag;
-    } else {
       this.$router.replace('/404');
     }
   }
@@ -51,7 +51,7 @@ export default class LabelsEdit extends Vue {
 
   removeTag(id: string) {
     if (this.tag) {
-      return
+      return;
       //todo
       // if( store.removeTag(this.tag.id)){
       //   window.alert('删除成功')
@@ -61,8 +61,9 @@ export default class LabelsEdit extends Vue {
       // }
     }
   }
-  goBack(){
-    this.$router.back()
+
+  goBack() {
+    this.$router.back();
   }
 
 }

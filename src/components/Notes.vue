@@ -1,11 +1,11 @@
 <template>
-  <lable class="notes">
+  <label class="notes">
     <span class="name">{{ this.fieldName }}</span>
     <input type="text"
            :value="value"
            @input="onValueChange($event.target.value)"
            :placeholder="this.placeholder" />
-  </lable>
+  </label>
 </template>
 
 <script lang="ts">

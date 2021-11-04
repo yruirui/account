@@ -36,9 +36,9 @@ import Notes from '@/components/Notes.vue';
 
 @Component({
       components: {Notes, Types, NumberPad, Tags},
-      computed: {//数据不管是对象和值都要放在这里,当值变化时对这些数据进行监听，保证数据的及时和灵活
-        recordList () {return this.$store.state.recordList},
-      }
+      // computed: {//数据不管是对象和值都要放在这里,当值变化时对这些数据进行监听，保证数据的及时和灵活
+      //   recordList () {return this.$store.state.recordList},
+      // }
     },
 )
 export default class Money extends Vue {
@@ -47,7 +47,9 @@ export default class Money extends Vue {
   // eslint-disable-next-line no-undef
   record: RecordItem = {tags: [], notes: '', type: '+', amount: 0, createdAt: undefined};
   // eslint-disable-next-line no-undef
-  //recordList = store.recordList;
+  get recordList () {return this.$store.state.recordList}
+
+
 created(){
   this.$store.commit('fetchRecords')
 }

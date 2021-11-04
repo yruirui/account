@@ -5,11 +5,18 @@ import createID from '@/lib/createID';
 
 Vue.use(Vuex);
 
+type RootState={
+    recordList: RecordItem[],
+    tagList:Tag[],
+    currentTag?:Tag
+}
+
 const store = new Vuex.Store({
     state: {
-        recordList:[] as RecordItem[],
-        tagList:[]
-    },
+        recordList:[] ,
+        tagList:[] ,
+        currentTag:undefined,
+    }as RootState,
     mutations: {
         fetchRecords(state) {
             try {
@@ -49,6 +56,10 @@ const store = new Vuex.Store({
         saveTags(state) {
             window.localStorage.setItem('tagList', JSON.stringify(state.tagList));
         },
+        setCurrentTag(state,id){
+            state.currentTag=state.tagList.filter(t=>t.id===id)[0];
+
+        }
     },
     actions: {},
     modules: {}
