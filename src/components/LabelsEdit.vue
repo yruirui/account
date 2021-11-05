@@ -28,37 +28,28 @@ import Button from '@/components/Button.vue';
   components: {Button, Notes},
 })
 export default class LabelsEdit extends Vue {
-  //tag?: { id: string, name: string } = undefined;
   get tag() {
     return this.$store.state.currentTag;
   }
 
   created() {
     const id = this.$route.params.id;
+    this.$store.commit('fetchTags');
     this.$store.commit('setCurrentTag', id);
     if (!this.tag) {
-      //todo
       this.$router.replace('/404');
     }
   }
 
   updateTag(name: string) {
     if (this.tag) {
-      //todo
-      //store.updateTag (this.tag.id, name) ;
+      this.$store.commit('updateTag',{id:this.tag.id,name})
     }
   }
 
   removeTag(id: string) {
     if (this.tag) {
-      return;
-      //todo
-      // if( store.removeTag(this.tag.id)){
-      //   window.alert('删除成功')
-      //   this.$router.back();
-      // }else {
-      //   window.alert('删除失败')
-      // }
+      this.$store.commit('removeTag',this.tag.id)
     }
   }
 
