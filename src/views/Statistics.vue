@@ -1,7 +1,7 @@
 <template>
   <layout>
-    <Tabs class-prefix="type" :data-source="array2" :value.sync="type"/>
-    <Tabs class-prefix="interval" :data-source="array" :value.sync="interval"/>
+    <Tabs class-prefix="type" :data-source="typeList" :value.sync="type"/>
+    <Tabs class-prefix="interval" :data-source="intervalList" :value.sync="interval"/>
     <div>
       type{{type}}
       <br/>
@@ -27,6 +27,8 @@ import Vue from "vue";
 import {Component} from "vue-property-decorator";
 import Types from "@/components/Types";
 import Tabs from "@/components/Tabs";
+import intervalList from "@/constants/intervalList";
+import typeList from "@/constants/typeList";
 
 
 @Component({
@@ -34,13 +36,9 @@ import Tabs from "@/components/Tabs";
 })
 export default class Statistics extends Vue {
   type = '-'
-  array = [{text: '按天', value: 'day'},
-    {text: '按周', value: 'week'},
-    {text: '按月', value: 'month'},
-  ]
+  intervalList = intervalList
   interval='day'
-  array2=[{text: '收入', value: '+'},
-    {text: '支出', value: '-'},]
+  typeList=typeList
 }
 </script>
 

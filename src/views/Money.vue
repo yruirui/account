@@ -3,7 +3,7 @@
     <Layout classprefix="classprefix">
       <Tags/>
       <Notes @update:value="onUpdateNotes" placeholder="请在这里输入备注" field-name="备注"/>
-      <Types :value.sync="record.type"/>
+      <Tabs  :data-source="typeList" :value.sync="record.type" />
       <NumberPad @update:value="onUpdateAmount" @submit="saveRecord"/>
     </Layout>
   </div>
@@ -16,6 +16,8 @@ import Tags from '@/components/Tags.vue';
 import NumberPad from '@/components/NumberPad.vue';
 import Types from '@/components/Types.vue';
 import Notes from '@/components/Notes.vue';
+import Tabs from '@/components/Tabs.vue';
+import typeList from '@/constants/typeList';
 
 
 
@@ -35,7 +37,7 @@ import Notes from '@/components/Notes.vue';
 
 
 @Component({
-      components: {Notes, Types, NumberPad, Tags},
+      components: {Tabs, Notes, Types, NumberPad, Tags},
       // computed: {//数据不管是对象和值都要放在这里,当值变化时对这些数据进行监听，保证数据的及时和灵活
       //   recordList () {return this.$store.state.recordList},
       // }
@@ -43,7 +45,7 @@ import Notes from '@/components/Notes.vue';
 )
 export default class Money extends Vue {
 
-
+  typeList=typeList
   // eslint-disable-next-line no-undef
   record: RecordItem = {tags: [], notes: '', type: '+', amount: 0, createdAt: undefined};
   // eslint-disable-next-line no-undef
