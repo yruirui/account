@@ -6,7 +6,7 @@
       <sapn class="rightIcon"></sapn>
     </div>
     <div class="fontWrapper">
-      <Notes :value="tag.name"
+      <Notes :value="currenTag.name"
              @update:value="updateTag"
              placeholder="请输入标签名"
              field-name="标签名"/>
@@ -28,7 +28,7 @@ import Button from '@/components/Button.vue';
   components: {Button, Notes},
 })
 export default class LabelsEdit extends Vue {
-  get tag() {
+  get currenTag() {
     return this.$store.state.currentTag;
   }
 
@@ -36,20 +36,20 @@ export default class LabelsEdit extends Vue {
     const id = this.$route.params.id;
     this.$store.commit('fetchTags');
     this.$store.commit('setCurrentTag', id);
-    if (!this.tag) {
+    if (!this.currenTag) {
       this.$router.replace('/404');
     }
   }
 
   updateTag(name: string) {
-    if (this.tag) {
-      this.$store.commit('updateTag',{id:this.tag.id,name})
+    if (this.currenTag) {
+      this.$store.commit('updateTag',{id:this.currenTag.id,name})
     }
   }
 
   removeTag(id: string) {
-    if (this.tag) {
-      this.$store.commit('removeTag',this.tag.id)
+    if (this.currenTag) {
+      this.$store.commit('removeTag',this.currenTag.id)
     }
   }
 

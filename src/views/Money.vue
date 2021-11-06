@@ -18,7 +18,7 @@ import Types from '@/components/Types.vue';
 import Notes from '@/components/Notes.vue';
 
 
-//todo
+
 //const tagList = store.tagList;
 //  //数据库升级和转移的一些处理
 // const version = window.localStorage.getItem('version') || '0';
