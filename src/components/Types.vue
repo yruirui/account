@@ -1,5 +1,5 @@
 <template>
-  <ul class='types'>
+  <ul class='types' :class="{[classPrefix+'tab']:classPrefix}">
     <li :class="{[classPrefix+'-item']:classPrefix,selected:value==='-'}" @click="selectType('-')">收入</li>
     <li :class="{[classPrefix+'-item']:classPrefix,selected:value==='+'}" @click="selectType('+')">支出</li>
   </ul>

@@ -21,6 +21,9 @@
     }
   }
 }
+::v-deep .interval-tabs-item{
+  heigth:48px
+}
 </style>
 <script>
 import Vue from "vue";
