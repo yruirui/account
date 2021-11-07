@@ -1,7 +1,7 @@
 <template>
-  <ul class='tabs'>
+  <ul class='tabs' :class="{[classPrefix+'-tabs']:classPrefix}">
     <li v-for="item in dataSource" :key="item.value"
-        @click="selecte(item)" :class=liClass(item) class="tabs-item">
+        @click="selecte(item)" class="tabs-item" :class=liClass(item) >
       {{ item.text }}
     </li>
   </ul>
@@ -13,7 +13,7 @@ import {Component, Prop} from 'vue-property-decorator';
 
 type dataSourceItem = { text: string, value: string }
 @Component
-export default class Tabs extends Vue {
+export default class Tabs1 extends Vue {
   @Prop({required: true, type: Array}) dataSource!: dataSourceItem[];
   @Prop() readonly value!: string;
   @Prop(String) classPrefix?: string;
@@ -44,7 +44,6 @@ export default class Tabs extends Vue {
     justify-content: center;
     align-items: center;
     position: relative;
-
     &.selected::after {
       content: '';
       position: absolute;

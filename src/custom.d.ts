@@ -3,7 +3,7 @@ type RecordItem = {
     notes: string
     type: string
     amount: number
-    createdAt: Date | undefined //类，构造函数
+    createdAt?: string  //类，构造函数
 }
 
 type Tag = {
@@ -20,15 +20,15 @@ type tagListModel = {
 
 }
 
-interface Window {
-    store:{
-        tagList: Tag[]
-        createTage: (name: string) => void
-        removeTag: (id: string) => boolean
-        updateTag:tagListModel['update']
-        findTag:(id:string)=>Tag
-        recordList:RecordItem[]
-        creatRecord:(record:RecordItem)=>viod
-    }
-
-}
+// interface Window {
+//     store:{
+//         tagList: Tag[]
+//         createTage: (name: string) => void
+//         removeTag: (id: string) => boolean
+//         updateTag:tagListModel['update']
+//         findTag:(id:string)=>Tag
+//         recordList:RecordItem[]
+//         creatRecord:(record:RecordItem)=>viod
+//     }
+//
+// }

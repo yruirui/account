@@ -16,7 +16,7 @@ import Tags from '@/components/Tags.vue';
 import NumberPad from '@/components/NumberPad.vue';
 import Types from '@/components/Types.vue';
 import Notes from '@/components/Notes.vue';
-import Tabs from '@/components/Tabs.vue';
+import Tabs1 from '@/components/Tabs.vue';
 import typeList from '@/constants/typeList';
 
 
@@ -37,7 +37,7 @@ import typeList from '@/constants/typeList';
 
 
 @Component({
-      components: {Tabs, Notes, Types, NumberPad, Tags},
+      components: {Tabs: Tabs1, Notes, Types, NumberPad, Tags},
       // computed: {//数据不管是对象和值都要放在这里,当值变化时对这些数据进行监听，保证数据的及时和灵活
       //   recordList () {return this.$store.state.recordList},
       // }
