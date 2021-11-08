@@ -4,12 +4,12 @@
     <Tabs class-prefix="interval" :data-source="intervalList" :value.sync="interval"/>
     <div>
       <ol>
-        <li v-for="(group,index) in result" :key="index" >
-          <h3 class="title">{{group.title}}</h3>
+        <li v-for="(group,index) in result" :key="index">
+          <h3 class="title">{{ beautify(group.title)}}</h3>
           <ol>
             <li v-for="item in group.items" :key="item.id" class="record">
-              <span> {{tagString(item.tags)}}</span>
-              <span class="note">{{item.notes}}
+              <span> {{ tagString(item.tags) }}</span>
+              <span class="note">{{ item.notes }}
               </span>
               <span>￥{{ item.amount }}</span>
             </li>
@@ -26,7 +26,7 @@ import {Component} from 'vue-property-decorator';
 import Tabs1 from '@/components/Tabs.vue';
 import intervalList from '@/constants/intervalList';
 import typeList from '@/constants/typeList';
-import Notes from '@/components/Notes.vue';
+import dayjs from 'dayjs'
 
 
 @Component({
@@ -37,12 +37,35 @@ export default class Statistics extends Vue {
     return this.$store.state.recordList;
   }
 
-noteString(note:string){
-    return note=note.Substring(0,);
-}
-  tagString(tags:Tag[]){
-    return tags.length===0? '无' : tags.join(',')
+  beautify(string:string) {
+   const day=dayjs(string)
+    const now=dayjs()
+    if(day.isSame(now,'day')){
+      return '今天'
+    }else if(day.isSame(now.subtract(1,'day'),'day')){
+      return '昨天'
+    }
+    else if(day.isSame(now.subtract(2,'day'),'day')){
+      return '前天'
+    }
+    else if(day.isSame(now,'year')){
+      return day.format('M月d日')
+    }
+    else {
+      return day.format('y年m月d日')
+    }
   }
+
+  tagString(tags: Tag[]) {
+    if (tags.length === 0) {
+      return '无';
+    } else {
+      let astring = tags.join(',');
+      console.log(JSON.stringify(tags.join(',')));
+      return astring;
+    }
+  }
+
   get result() {//对recordList做一个分组（简单处理数据）
     const {recordList} = this;
     type hashTableValue = { title: string, items: RecordItem[] }
@@ -85,22 +108,26 @@ noteString(note:string){
 ::v-deep .interval-tabs-item {
   height: 48px;
 }
-%item{
+
+%item {
   padding: 8px 16px;
-  min-height:40px;
+  min-height: 40px;
   display: flex;
   align-content: center;
   justify-content: space-between;
   line-height: 24px;
 }
-.record{
+
+.record {
   @extend %item;
   background: white;
 }
-.title{
+
+.title {
   @extend %item;
 }
-.note{
+
+.note {
   margin-right: auto;
   color: #999;
   margin-left: 8px;

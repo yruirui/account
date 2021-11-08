@@ -1,7 +1,7 @@
 <template>
   <div>
     <Layout classprefix="classprefix">
-      <Tags/>
+      <Tags @update:value="onUpdateTags"/>
       <Notes @update:value="onUpdateNotes" placeholder="请在这里输入备注" field-name="备注"/>
       <Tabs  :data-source="typeList" :value.sync="record.type" />
       <NumberPad @update:value="onUpdateAmount" @submit="saveRecord"/>
@@ -56,12 +56,14 @@ created(){
   this.$store.commit('fetchRecords')
 }
   onUpdateNotes(value: string) {
-
     this.record.notes = value;
   }
 
   onUpdateAmount(value: string) {
     this.record.amount = parseFloat(value);
+  }
+  onUpdateTags(value: string[]){
+    this.record.tags=value
   }
 
   saveRecord() {
