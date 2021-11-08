@@ -62,7 +62,7 @@ created(){
   onUpdateAmount(value: string) {
     this.record.amount = parseFloat(value);
   }
-  onUpdateTags(value: string[]){
+  onUpdateTags(value: Tag[]){
     this.record.tags=value
   }
 
@@ -93,4 +93,8 @@ created(){
 <style scoped lang='scss'>
 @import '~@/assets/style/helper.scss';
 
+::v-deep layout-count{
+  display: flex;
+  flex-direction: column-reverse;
+}
 </style>

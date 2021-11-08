@@ -1,5 +1,9 @@
 module.exports = {
   root: true,
+  globals: {
+    Tag: true,
+    RecordItem: true
+  },
   env: {
     node: true
   },
