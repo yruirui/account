@@ -36,7 +36,7 @@ export default class Tags extends mixins(TagHelper) {
   toggle(tag: string) {
     const index = this.selectedTags.indexOf(tag);
     if (index >= 0) {
-      this.selectedTags.push(tag);
+      // this.selectedTags.push(tag);
       this.selectedTags.splice(index, 1);
     } else {
       this.selectedTags.push(tag);
@@ -68,10 +68,9 @@ export default class Tags extends mixins(TagHelper) {
       padding: 0 16px;
       margin-right: 12px;
       margin-top: 3px;
-
       &.selected {
-        background: darken($bg, 50%);
-        color: whitesmoke;
+        background: #EEC900;;
+        color: #EE4000;
       }
     }
   }

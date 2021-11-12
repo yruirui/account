@@ -33,7 +33,7 @@ export default class Tabs1 extends Vue {
 
 <style scoped lang='scss'>
 .tabs {
-  background: #c4c4c4;
+  background: #EEC900;
   display: flex;
   text-align: center;
   font-size: 24px;

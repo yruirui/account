@@ -8,7 +8,7 @@
         </router-link>
       </div>
       <div class="newTag-wrapper">
-        <Button @click="createTag">新增标签</Button>
+        <Button @click="createTag" class="newTag" >新增标签</Button>
       </div>
     </layout>
   </div>
@@ -45,6 +45,10 @@ export default class Lables extends mixins(TagHelper) {
 </script>
 
 <style scoped lang="scss">
+::v-deep .newTag{
+  background: #FFF68F;
+  color: white;
+}
 .tags {
   background: white;
   padding-left: 16px;

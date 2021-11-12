@@ -1,10 +1,10 @@
 <template>
   <layout>
-    <Tabs class-prefix="type" :data-source="typeList" :value.sync="type"/>
+    <Tabs class-prefix="type" :data-source="typeList" :value.sync="type" class="stabs"/>
     <div>
-      <ol>
+      <ol v-if="groupList.length>0">
         <li v-for="(group,index) in groupList" :key="index">
-          <h3 class="title">{{ group.title }}</h3>
+          <h3 class="title">{{ group.title }}<span>{{group.total}}</span></h3>
           <ol>
             <li v-for="item in group.items" :key="item.id" class="record">
               <span> {{ tagString(item.tags) }}</span>
@@ -15,6 +15,9 @@
           </ol>
         </li>
       </ol>
+      <div v-else class="norecord">
+        目前没有记录，请添加
+      </div>
     </div>
   </layout>
 </template>
@@ -57,9 +60,9 @@ export default class Statistics extends Vue {
     if (tags.length === 0) {
       return '无';
     } else {
-      let tagstring=''
-      for(let i=0;i<tags.length;i++){
-        tagstring=tagstring.concat(tags[i].name,' ')
+      let tagstring = '';
+      for (let i = 0; i < tags.length; i++) {
+        tagstring = tagstring.concat(tags[i].name, ' ');
       }
       return tagstring;
     }
@@ -67,24 +70,27 @@ export default class Statistics extends Vue {
 
   get groupList() {//对recordList做一个分组（简单处理数据）
     const {recordList} = this;
-    if (recordList.length === 0) {
-      return [];
-    }
     type hashTableValue = { title: string, items: RecordItem[] }
-
-    const newList = clone(recordList).sort((a,b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
-    const result = [{title: dayjs(newList[0].createdAt).format('YYYY年M月D日'), items: [newList[0]]}];
+    const newList = clone(recordList).filter(r => r.type === this.type).sort((a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
+    if (newList.length === 0) {
+      return [] as Result;
+    }
+    type Result={title:string,items:RecordItem[],total?:number}[]
+    const result : Result= [{title: dayjs(newList[0].createdAt).format('YYYY年M月D日'), items: [newList[0]]}];
     for (let i = 1; i < newList.length; i++) {
       const current = newList[i];
       const last = result[result.length - 1];//x的在最后一项
-      const a=dayjs(current.createdAt).format('YYYY年M月D日');
-      if(last.title===a){
-        last.items.push(current)
-      }else{
-        result.push({title: dayjs(current.createdAt).format('YYYY年M月D日'), items:[current]})
+      const a = dayjs(current.createdAt).format('YYYY年M月D日');
+      if (last.title === a) {
+        last.items.push(current);
+      } else {
+        result.push({title: dayjs(current.createdAt).format('YYYY年M月D日'), items: [current]});
       }
     }
-
+    result.map(group=>{
+      group.total=group.items.reduce((sum,item)=>sum+item.amount,0)
+    })
+    console.log('nishigepi')
     return result;
   }
 
@@ -99,9 +105,14 @@ export default class Statistics extends Vue {
   typeList = typeList;
 }
 </script>
+
 <style scoped lang="scss">
+.norecord{
+  padding: 16px;
+  text-align: center;
+}
 ::v-deep .type-tabs-item {
-  background: #c4c4c4;
+  background: #EEC900;;
 
   &.selected {
     background: white;
@@ -140,4 +151,5 @@ export default class Statistics extends Vue {
   color: #999;
   margin-left: 8px;
 }
+
 </style>

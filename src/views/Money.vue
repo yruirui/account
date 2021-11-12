@@ -2,8 +2,8 @@
   <div>
     <Layout classprefix="classprefix">
       <Tags @update:value="onUpdateTags"/>
-      <Notes @update:value="onUpdateNotes" placeholder="请在这里输入备注" field-name="备注"/>
-      <Tabs  :data-source="typeList" :value.sync="record.type" />
+      <Notes @update:value="onUpdateNotes" placeholder="请在这里输入备注" :value.sync="record.notes" field-name="备注"/>
+      <Tabs :data-source="typeList" :value.sync="record.type"/>
       <NumberPad @update:value="onUpdateAmount" @submit="saveRecord"/>
     </Layout>
   </div>
@@ -18,7 +18,6 @@ import Types from '@/components/Types.vue';
 import Notes from '@/components/Notes.vue';
 import Tabs1 from '@/components/Tabs.vue';
 import typeList from '@/constants/typeList';
-
 
 
 //const tagList = store.tagList;
@@ -45,16 +44,20 @@ import typeList from '@/constants/typeList';
 )
 export default class Money extends Vue {
 
-  typeList=typeList
+  typeList = typeList;
   // eslint-disable-next-line no-undef
   record: RecordItem = {tags: [], notes: '', type: '+', amount: 0, createdAt: undefined};
+
   // eslint-disable-next-line no-undef
-  get recordList () {return this.$store.state.recordList}
+  get recordList() {
+    return this.$store.state.recordList;
+  }
 
 
-created(){
-  this.$store.commit('fetchRecords')
-}
+  created() {
+    this.$store.commit('fetchRecords');
+  }
+
   onUpdateNotes(value: string) {
     this.record.notes = value;
   }
@@ -62,14 +65,21 @@ created(){
   onUpdateAmount(value: string) {
     this.record.amount = parseFloat(value);
   }
-  onUpdateTags(value: Tag[]){
-    this.record.tags=value
+
+  onUpdateTags(value: Tag[]) {
+    this.record.tags = value;
   }
 
   saveRecord() {
     try {
-      this.$store.commit('createRecord',this.record
-      );
+      if(!this.record.tags||this.record.tags.length===0){
+       return  window.alert('至少选择一个标签')
+      }
+      this.$store.commit('createRecord', this.record);
+      if(this.$store.state.createRecordError===null){
+        window.alert('创建成功')
+        this.record.notes=''
+      }
     } catch (error) {
       console.log('saveRecord');
       console.log(error);
@@ -93,7 +103,7 @@ created(){
 <style scoped lang='scss'>
 @import '~@/assets/style/helper.scss';
 
-::v-deep layout-count{
+::v-deep layout-count {
   display: flex;
   flex-direction: column-reverse;
 }
