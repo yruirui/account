@@ -25,5 +25,18 @@ new Vue({
 window.onload=function(){
     setTimeout(function(){
         window.scroll(0,1000)
-    },0)
+    },0)//滑到最底部
+}
+
+if(document.documentElement.clientWidth>500){
+    window.alert('请用手机打开，以保证使用效果')
+    const img1 =document.createElement('img')
+    console.log("img");
+    
+    img1.src='\qrcode.png'
+    img1.style.position='fixed'
+    img1.style.left='50%'
+    img1.style.transform='translate(-50%,-50%)'
+    img1.style.top='50%'
+    document.body.appendChild(img1)
 }
